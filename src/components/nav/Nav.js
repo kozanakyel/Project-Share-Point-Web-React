@@ -5,7 +5,7 @@ import './nav.scss';
 
 const Nav = () => {
     return <>
-        <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <nav className="navbar navbar-expand-md navbar-dark bg-success mb-4">
             <div className="container-fluid">
                 <Link to="/" className="navbar-brand">Home</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
