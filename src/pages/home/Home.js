@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import useLogout from "../../utils/useLogout";
 import useRefreshToken from "../../utils/useRefreshToken";
 
-import './home.scss';
 
 
 

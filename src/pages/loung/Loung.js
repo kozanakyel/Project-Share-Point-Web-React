@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 
-import './loung.scss';
 
 const Lounge = () => {
     return (

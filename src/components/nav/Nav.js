@@ -1,13 +1,16 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
-import './nav.scss';
+import { HiPaperAirplane } from "react-icons/hi";
+
+
 
 
 const Nav = () => {
     return <>
         <nav className="navbar navbar-expand-md navbar-dark bg-success mb-4">
             <div className="container-fluid">
-                <Link to="/" className="navbar-brand">Home</Link>
+                
+                <Link to="/" className="navbar-brand"><HiPaperAirplane /> PSP</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
