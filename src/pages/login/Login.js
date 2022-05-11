@@ -5,6 +5,7 @@ import useAuth from './../../utils/useAuth';
 import axios from './../../utils/axios';
 
 import classes from '../../App.module.scss';
+import Header from '../../components/header/Header';
 
 
 const LOGIN_URL = '/api/Account/authenticate';
@@ -81,6 +82,7 @@ const Login = () => {
 
     return (
         <>
+            <Header />
             <main className={classes["form-signin"]}>
                 <section>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>

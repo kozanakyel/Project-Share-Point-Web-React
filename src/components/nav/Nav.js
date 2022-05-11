@@ -7,7 +7,7 @@ import { HiPaperAirplane } from "react-icons/hi";
 
 const Nav = () => {
     return <>
-        <nav className="navbar navbar-expand-md navbar-dark bg-success mb-4">
+        <nav className="navbar navbar-expand-md navbar-dark bg-success">
             <div className="container-fluid">
                 
                 <Link to="/" className="navbar-brand"><HiPaperAirplane /> PSP</Link>
