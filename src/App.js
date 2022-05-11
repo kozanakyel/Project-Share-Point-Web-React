@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import classes from './App.module.scss';
 import Nav from './components/nav/Nav';
 import Login from './pages/login/Login';
 import Home from './pages/home/Home';
@@ -16,6 +15,8 @@ import LinkPage from './pages/linkpage/LinkPage';
 import RequireAuth from './components/requireauth/RequireAuth';
 import PersistLogin from './components/persistlogin/PersistLogin';
 
+import Footer from './components/footer/Footer';
+
 
 const ROLES = [
     "Basic",
@@ -30,38 +31,34 @@ function App() {
 
         <>
             <Nav />
-            <main className={classes["form-signin"]}>
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    {/* public routes */}
+                    <Route path="login" element={<Login />} />
+                    <Route path="register" element={<Register />} />
+                    <Route path="linkpage" element={<LinkPage />} />
+                    <Route path="unauthorized" element={<Unauthorized />} />
 
-                <Routes>
-                    <Route path="/" element={<Layout />}>
-                        {/* public routes */}
-                        <Route path="login" element={<Login />} />
-                        <Route path="register" element={<Register />} />
-                        <Route path="linkpage" element={<LinkPage />} />
-                        <Route path="unauthorized" element={<Unauthorized />} />
-
-                        {/* we want to protect these routes */}
-                        <Route element={<PersistLogin />}>
-                            <Route element={<RequireAuth allowedRoles={[ROLES[0]]} />}>
-                                <Route path="/" element={<Home />} />
-                            </Route>
-                            <Route element={<RequireAuth allowedRoles={[ROLES[0]]} />}>
-                                <Route path="myprofile" element={<Myprofile />} />
-                            </Route>
-                            <Route element={<RequireAuth allowedRoles={[ROLES[1]]} />}>
-                                <Route path="admin" element={<Admin />} />
-                            </Route>
-                            <Route element={<RequireAuth allowedRoles={[ROLES[0]]} />}>
-                                <Route path="loung" element={<Loung />} />
-                            </Route>
+                    {/* we want to protect these routes */}
+                    <Route element={<PersistLogin />}>
+                        <Route element={<RequireAuth allowedRoles={[ROLES[0]]} />}>
+                            <Route path="/" element={<Home />} />
                         </Route>
-                        {/* catch all */}
-                        <Route path="*" element={<Missing />} />
+                        <Route element={<RequireAuth allowedRoles={[ROLES[0]]} />}>
+                            <Route path="myprofile" element={<Myprofile />} />
+                        </Route>
+                        <Route element={<RequireAuth allowedRoles={[ROLES[1]]} />}>
+                            <Route path="admin" element={<Admin />} />
+                        </Route>
+                        <Route element={<RequireAuth allowedRoles={[ROLES[0]]} />}>
+                            <Route path="loung" element={<Loung />} />
+                        </Route>
                     </Route>
-
-                </Routes>
-
-            </main>
+                    {/* catch all */}
+                    <Route path="*" element={<Missing />} />
+                </Route>
+            </Routes>
+            <Footer />
         </>
     );
 }

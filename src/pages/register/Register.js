@@ -5,6 +5,8 @@ import { FaTimes } from 'react-icons/fa';
 
 import axios from './../../utils/axios';
 
+import classes from '../../App.module.scss';
+
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{5,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -170,108 +172,110 @@ const Register = () => {
 
 
     return <>
-        {success ? (
-            <section>
-                <h1>Success!</h1>
-                <p>
-                    <Link to="/login">Login In</Link>
-                </p>
-            </section>
-        ) : (
-            <section>
-                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}
-                    aria-live="assertive">{errMsg}</p>
-                <h1>Register</h1>
-                <form onSubmit={submit} className="form-signin">
-                    <label htmlFor="firstName">
-                        Firstname:
-                        <BiCheckboxChecked className={validFirstName ? "valid" : "hide"} />
-                        <FaTimes className={validFirstName || !firstName ? "hide" : "invalid"} />
-                    </label>
-                    <input
-                        className="form-control"
-                        placeholder="name66"
-                        required
-                        type="text"
-                        id="firstName"
-                        ref={userRef}
-                        autoComplete="off"
-                        onChange={e => setFirstname(e.target.value)}
-                        aria-invalid={validFirstName ? "false" : "true"}
-                        aria-describedby="uidnote"
-                        onFocus={() => setFirstFocus(true)}
-                        onBlur={() => setFirstFocus(false)}
-                    />
-                    <p id="uidnote" className={firstFocus && firstName && !validFirstName ? "instructions" : "offscreen"}>
-
-                        6 to 24 characters.<br />
-                        Must begin with a letter.<br />
-                        Letters, numbers, underscores, hyphens allowed.
+        <main className={classes["form-signin"]}>
+            {success ? (
+                <section>
+                    <h1>Success!</h1>
+                    <p>
+                        <Link to="/login">Login In</Link>
                     </p>
+                </section>
+            ) : (
+                <section>
+                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}
+                        aria-live="assertive">{errMsg}</p>
+                    <h1>Register</h1>
+                    <form onSubmit={submit} className="form-signin">
+                        <label htmlFor="firstName">
+                            Firstname:
+                            <BiCheckboxChecked className={validFirstName ? "valid" : "hide"} />
+                            <FaTimes className={validFirstName || !firstName ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            className="form-control"
+                            placeholder="name66"
+                            required
+                            type="text"
+                            id="firstName"
+                            ref={userRef}
+                            autoComplete="off"
+                            onChange={e => setFirstname(e.target.value)}
+                            aria-invalid={validFirstName ? "false" : "true"}
+                            aria-describedby="uidnote"
+                            onFocus={() => setFirstFocus(true)}
+                            onBlur={() => setFirstFocus(false)}
+                        />
+                        <p id="uidnote" className={firstFocus && firstName && !validFirstName ? "instructions" : "offscreen"}>
+
+                            6 to 24 characters.<br />
+                            Must begin with a letter.<br />
+                            Letters, numbers, underscores, hyphens allowed.
+                        </p>
 
 
-                    <input className="form-control" placeholder="lastname66" required
-                        onChange={e => setLastname(e.target.value)}
-                    />
-                    <input type="email" className="form-control" placeholder="char66@example.com"
-                        onChange={e => setEmail(e.target.value)}
-                    />
-                    <input className="form-control" placeholder="username" required
-                        onChange={e => setUsername(e.target.value)}
-                    />
+                        <input className="form-control" placeholder="lastname66" required
+                            onChange={e => setLastname(e.target.value)}
+                        />
+                        <input type="email" className="form-control" placeholder="char66@example.com"
+                            onChange={e => setEmail(e.target.value)}
+                        />
+                        <input className="form-control" placeholder="username" required
+                            onChange={e => setUsername(e.target.value)}
+                        />
 
-                    <label htmlFor="password">
-                        Password:
+                        <label htmlFor="password">
+                            Password:
 
-                    </label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        placeholder="123Pa$$word"
-                        onChange={e => setPassword(e.target.value)}
-                        id="password"
-                        aria-invalid={validPwd ? "false" : "true"}
-                        aria-describedby="pwdnote"
-                        onFocus={() => setPwdFocus(true)}
-                        onBlur={() => setPwdFocus(false)}
-                    />
-                    <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+                        </label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            placeholder="123Pa$$word"
+                            onChange={e => setPassword(e.target.value)}
+                            id="password"
+                            aria-invalid={validPwd ? "false" : "true"}
+                            aria-describedby="pwdnote"
+                            onFocus={() => setPwdFocus(true)}
+                            onBlur={() => setPwdFocus(false)}
+                        />
+                        <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
 
-                        8 to 24 characters.<br />
-                        Must include uppercase and lowercase letters, a number and a special character.<br />
-                        Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
-                    </p>
+                            8 to 24 characters.<br />
+                            Must include uppercase and lowercase letters, a number and a special character.<br />
+                            Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                        </p>
 
-                    <label htmlFor="confirm_pwd">
-                        Confirm Password:
+                        <label htmlFor="confirm_pwd">
+                            Confirm Password:
 
-                    </label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        placeholder="123Pa$$word"
-                        onChange={e => setConfirmpassword(e.target.value)}
-                        id="confirm_pwd"
-                        required
-                        aria-invalid={validMatch ? "false" : "true"}
-                        aria-describedby="confirmnote"
-                        onFocus={() => setMatchFocus(true)}
-                        onBlur={() => setMatchFocus(false)}
-                    />
-                    <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
+                        </label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            placeholder="123Pa$$word"
+                            onChange={e => setConfirmpassword(e.target.value)}
+                            id="confirm_pwd"
+                            required
+                            aria-invalid={validMatch ? "false" : "true"}
+                            aria-describedby="confirmnote"
+                            onFocus={() => setMatchFocus(true)}
+                            onBlur={() => setMatchFocus(false)}
+                        />
+                        <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
 
-                        Must match the first password input field.
-                    </p>
-                    <button
-                        className="w-100 btn btn-lg btn-primary"
-                        type="submit"
-                        disabled={!validFirstName || !validPwd || !validMatch ? true : false}
-                    >
-                        Submit
-                    </button>
-                </form>
-            </section>
-        )}
+                            Must match the first password input field.
+                        </p>
+                        <button
+                            className="w-100 btn btn-lg btn-primary"
+                            type="submit"
+                            disabled={!validFirstName || !validPwd || !validMatch ? true : false}
+                        >
+                            Submit
+                        </button>
+                    </form>
+                </section>
+            )}
+        </main>
     </>;
 };
 

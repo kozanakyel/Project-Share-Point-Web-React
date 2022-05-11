@@ -4,6 +4,8 @@ import useAuth from './../../utils/useAuth';
 
 import axios from './../../utils/axios';
 
+import classes from '../../App.module.scss';
+
 
 const LOGIN_URL = '/api/Account/authenticate';
 
@@ -79,42 +81,42 @@ const Login = () => {
 
     return (
         <>
+            <main className={classes["form-signin"]}>
+                <section>
+                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                    <h1>Login In</h1>
+                    <form onSubmit={handleSubmit} className="form-signin">
+                        <label htmlFor="email">Email:</label>
+                        <input
+                            type="email"
+                            id="email"
+                            ref={userRef}
+                            autoComplete="off"
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            required
+                        />
 
-            <section>
-                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                <h1>Login In</h1>
-                <form onSubmit={handleSubmit} className="form-signin">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        ref={userRef}
-                        autoComplete="off"
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                        required
-                    />
+                        <label htmlFor="password">Password:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
+                            required
+                        />
+                        <button>Login in In</button>
+                        <p>
+                            Need an Account?<br />
+                            <span className="line">
+                                {/*put router link here*/}
+                                <Link to="/register">Register in</Link>
+                            </span>
+                        </p>
+                    </form>
 
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
-                        required
-                    />
-                    <button>Login in In</button>
-                    <p>
-                    Need an Account?<br />
-                    <span className="line">
-                        {/*put router link here*/}
-                        <Link to="/register">Register in</Link>
-                    </span>
-                </p>
-                </form>
-                
-            </section>
-
+                </section>
+            </main>
         </>
     )
 };
