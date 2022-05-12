@@ -11,6 +11,7 @@ import Missing from './pages/missing/Missing';
 import Unauthorized from './pages/unauthorized/Unauthorized';
 import Loung from './pages/loung/Loung';
 import LinkPage from './pages/linkpage/LinkPage';
+import AllProjects from './pages/allprojects/AllProjects'; 
 
 import RequireAuth from './components/requireauth/RequireAuth';
 import PersistLogin from './components/persistlogin/PersistLogin';
@@ -38,6 +39,7 @@ function App() {
                     <Route path="register" element={<Register />} />
                     <Route path="linkpage" element={<LinkPage />} />
                     <Route path="unauthorized" element={<Unauthorized />} />
+                    <Route path="allprojects" element={<AllProjects />} />
 
                     {/* we want to protect these routes */}
                     <Route element={<PersistLogin />}>
