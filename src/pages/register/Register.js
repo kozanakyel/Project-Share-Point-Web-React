@@ -7,6 +7,8 @@ import axios from './../../utils/axios';
 
 import classes from '../../App.module.scss';
 
+import Header from "../../components/header/Header";
+
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{5,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -170,11 +172,13 @@ const Register = () => {
 
     }
 
+    const registerContent = 'Sign up and take the first step to a new world with us';
 
     return <>
+    <Header content={registerContent} />
         <main className={classes["form-signin"]}>
             {success ? (
-                <section>
+                <section style={{marginBottom:100}}>
                     <h1>Success!</h1>
                     <p>
                         <Link to="/login">Login In</Link>

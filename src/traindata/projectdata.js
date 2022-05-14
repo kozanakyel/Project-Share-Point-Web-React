@@ -10,18 +10,7 @@ const projectData = [
         Source Code in Python 2022-Interesting machine learning project ideas \
         to kick-start a career in machine learning.',
         comments: [
-            {
-                commentor: 'vesile',
-                comment: 'absolutely amazing peojects how can handle them'
-            },
-            {
-                commentor: 'ali',
-                comment: 'yok boyle birsey biz yillardir ugrasiyoruz spor kulubu'
-            },
-            {
-                commentor: 'enes',
-                comment: 'absolutely amazing peojects how can handle them'
-            },
+            
         ]
     },
     {

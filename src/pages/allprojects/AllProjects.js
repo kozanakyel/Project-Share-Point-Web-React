@@ -40,10 +40,7 @@ const AllProjects = () => {
                         </div>
                     );
                 })}
-
             </div>
-
-
         </article>
     </>
 

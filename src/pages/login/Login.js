@@ -78,15 +78,15 @@ const Login = () => {
         }
     }
 
-
+    const headerLogin = 'Would you like to share your every situation and thought with us? continue to see latest projects';
 
     return (
         <>
-            <Header />
+            <Header content={headerLogin} />
             <main className={classes["form-signin"]}>
                 <section>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1>Login In</h1>
+                    <h1>Login</h1>
                     <form onSubmit={handleSubmit} className="form-signin">
                         <label htmlFor="email">Email:</label>
                         <input
@@ -107,12 +107,12 @@ const Login = () => {
                             value={password}
                             required
                         />
-                        <button>Login in In</button>
+                        <button>Login in</button>
                         <p>
                             Need an Account?<br />
                             <span className="line">
                                 {/*put router link here*/}
-                                <Link to="/register">Register in</Link>
+                                <Link to="/register">Register</Link>
                             </span>
                         </p>
                     </form>
