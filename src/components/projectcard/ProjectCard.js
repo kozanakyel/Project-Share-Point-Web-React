@@ -9,7 +9,7 @@ import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
+import { green } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -30,7 +30,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function ProjectCard() {
+export default function ProjectCard(props) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -41,8 +41,8 @@ export default function ProjectCard() {
     <Card sx={{ marginTop: 3, width: 500, border: 2 }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+          <Avatar sx={{ bgcolor: green[500] }} aria-label="recipe">
+            {props.avatar}
           </Avatar>
         }
         action={
@@ -50,21 +50,19 @@ export default function ProjectCard() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="SRaspberry PI Face Detection"
-        subheader="September 14, 2016"
+        title={props.title}
+        subheader={props.date}
       />
       <div className='card-content-row'>
         <CardMedia
           component="img"
           height="194"
-          image="/samples/rasp.jpg"
+          image={props.image}
           alt="Paella dish"
         />
         <CardContent>
           <Typography variant="body2" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like.
+            {props.content}
           </Typography>
         </CardContent>
       </div>
@@ -97,20 +95,19 @@ export default function ProjectCard() {
         <CardContent>
           <Typography paragraph>Comments:</Typography>
           <Typography paragraph>
-            <h5>melih</h5>   Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-            aside for 10 minutes.
+            <h5>Admin</h5>   Always enjoy when you write the comment
           </Typography>
-          <Typography paragraph>
-            <h5>ali</h5> Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
-            medium-high heat.
-          </Typography>
-          <Typography paragraph>
-            <h5>vesile</h5>Add rice and stir very gently to distribute. Top with artichokes and
-            peppers,
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then serve.
-          </Typography>
+          {props.comments.map((e, i) => {
+            return (
+              <Typography paragraph>
+                <div key={i}>
+                  <h5>{e.commentor}</h5> {e.comment}
+                </div>
+              </Typography>
+            );
+          })}
+
+
         </CardContent>
       </Collapse>
     </Card>
