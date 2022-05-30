@@ -95,15 +95,17 @@ export default function ProjectCard(props) {
         <CardContent>
           <Typography paragraph>Comments:</Typography>
           <Typography paragraph>
-            <h5>Admin</h5>   Always enjoy when you write the comment
+            <p>Admin</p>  
+            <p>Always enjoy when you write the comment</p> 
           </Typography>
           {props.comments.map((e, i) => {
             return (
+              <div key={i}>
               <Typography paragraph>
-                <div key={i}>
-                  <h5>{e.commentor}</h5> {e.comment}
-                </div>
+                  <p>{e.commentor}</p> 
+                  <p>{e.comment}</p>
               </Typography>
+              </div>
             );
           })}
 

@@ -10,8 +10,8 @@ const PersistLogin = () => {
 
     console.log(
         'auth for persist current auth detyail for user: ', auth,
-        'current email', auth?.email,
-        'type of email', typeof auth?.email);
+        'current email', auth?.emailAddress,
+        'type of email', typeof auth?.emailAddress);
 
     useEffect(() => {
         let isMounted = true;
@@ -31,13 +31,14 @@ const PersistLogin = () => {
         !auth?.jwToken ? verifyRefreshToken() : setIsLoading(false);
 
         return () => isMounted = false;
-    }, [])
+    }, [auth?.jwToken, refresh])
 
     useEffect(() => {
-        console.log(`isLoading: ${isLoading}`)
-        console.log(`aT: ${JSON.stringify(auth?.jwToken)}`)
-    }, [isLoading])
+        console.log(`persist isLoading: ${isLoading}`)
+        console.log(`persist aT: ${JSON.stringify(auth?.jwToken)}`)
+    }, [isLoading, auth?.jwToken])
 
+    console.log('persist objects; ', persist);
     return (
         <>
             {!persist

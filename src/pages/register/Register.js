@@ -23,17 +23,17 @@ const Register = () => {
     const [firstFocus, setFirstFocus] = useState(false);
 
     const [lastName, setLastname] = useState('');
-    const [email, setEmail] = useState('');
-    const [userName, setUsername] = useState('');
+    const [emailAddress, setEmailAddress] = useState('');
+    const [username, setUsername] = useState('');
 
 
     const [password, setPassword] = useState('');
     const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
 
-    const [confirmPassword, setConfirmpassword] = useState('');
+    //const [confirmPassword, setConfirmpassword] = useState('');
     const [validMatch, setValidMatch] = useState(false);
-    const [matchFocus, setMatchFocus] = useState(false);
+    //const [matchFocus, setMatchFocus] = useState(false);
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
@@ -46,15 +46,24 @@ const Register = () => {
         setValidFirstName(USER_REGEX.test(firstName));
     }, [firstName])
 
-    useEffect(() => {
+    /**
+     useEffect(() => {
         setValidPwd(PWD_REGEX.test(password));
         setValidMatch(password === confirmPassword);
         console.log(validMatch);
-    }, [password, confirmPassword])
+    }, [password, confirmPassword, validMatch])
+     */
+    useEffect(() => {
+        setValidPwd(PWD_REGEX.test(password));
+        setValidMatch(password.length >= 8);
+        console.log(password);
+    }, [password, validMatch])
+
+
 
     useEffect(() => {
         setErrMsg('');
-    }, [firstName, password, confirmPassword])
+    }, [firstName, password /*, confirmPassword] */])
 
     const submit = async (e) => {
         e.preventDefault();
@@ -67,34 +76,42 @@ const Register = () => {
         }
 
         console.log(firstName, password);
-        //setSuccess(true);
-
-        String.prototype.replaceAt = function (index, replacement) {
-            return this.substr(0, index) + replacement + this.substr(index + replacement.length);
-        }
 
         try {
-            const response = await axios.post('/api/Account/register',
+            const response = await axios.post('/api/Identity/registration',
                 JSON.stringify({
                     firstName,
                     lastName,
-                    email,
-                    userName,
-                    password,
-                    confirmPassword
+                    emailAddress,
+                    username,
+                    password
+                    //confirmPassword
                 }),
                 {
-                    headers: { 'Content-Type': 'application/json' }
+                    headers: { 
+                        'Content-Type': 'application/json'
+                    }
+                    
                 }
             );
-            console.log(response);
+            console.log('response data', response);
+            console.log('status', response.status, 'typr of', typeof(response.status));
             localStorage.setItem("data", JSON.stringify(response));
             const saved = localStorage.getItem("data");
-            console.log(saved)
+            console.log('before parsed', saved)
             let savedObject = JSON.parse(saved);
-            console.log(savedObject.data);
-            let urlForConfirmedEmail = savedObject.data["message"].split(" ").reverse()[0];
-            urlForConfirmedEmail = urlForConfirmedEmail.replaceAt(17, "5");
+            console.log('saved data after parsed', savedObject.data);
+            if (response.status === 200) {
+                setSuccess(true);
+                localStorage.clear();
+            } else {
+                setErrMsg('Not confirmed please try again!');
+                localStorage.clear();
+            }
+            /**
+             let urlForConfirmedEmail = savedObject.data["message"].split(" ").reverse()[0];
+            //urlForConfirmedEmail = urlForConfirmedEmail.replaceAt(17, "5");
+            urlForConfirmedEmail = urlForConfirmedEmail.replace('3000', '5000')  //Importanr last point
             console.log(urlForConfirmedEmail);
 
             //get reponse from CONFIRMED email api and navigate login or register page
@@ -111,6 +128,8 @@ const Register = () => {
                 setErrMsg('Not confirmed please try again!');
                 localStorage.clear();
             }
+             */
+            
 
 
             //clear the input fields
@@ -175,10 +194,10 @@ const Register = () => {
     const registerContent = 'Sign up and take the first step to a new world with us';
 
     return <>
-    <Header content={registerContent} />
+        <Header content={registerContent} />
         <main className={classes["form-signin"]}>
             {success ? (
-                <section style={{marginBottom:100}}>
+                <section style={{ marginBottom: 100 }}>
                     <h1>Success!</h1>
                     <p>
                         <Link to="/login">Login In</Link>
@@ -221,7 +240,7 @@ const Register = () => {
                             onChange={e => setLastname(e.target.value)}
                         />
                         <input type="email" className="form-control" placeholder="char66@example.com"
-                            onChange={e => setEmail(e.target.value)}
+                            onChange={e => setEmailAddress(e.target.value)}
                         />
                         <input className="form-control" placeholder="username" required
                             onChange={e => setUsername(e.target.value)}
@@ -248,8 +267,8 @@ const Register = () => {
                             Must include uppercase and lowercase letters, a number and a special character.<br />
                             Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
                         </p>
-
-                        <label htmlFor="confirm_pwd">
+                        {/**
+                         <label htmlFor="confirm_pwd">
                             Confirm Password:
 
                         </label>
@@ -269,10 +288,14 @@ const Register = () => {
 
                             Must match the first password input field.
                         </p>
+
+
+                         */}
+
                         <button
                             className="w-100 btn btn-lg btn-primary"
                             type="submit"
-                            disabled={!validFirstName || !validPwd || !validMatch ? true : false}
+                            disabled={!validFirstName || !validPwd /*|| !validMatch ? true : false*/}
                         >
                             Submit
                         </button>

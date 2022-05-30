@@ -8,16 +8,7 @@ import classes from '../../App.module.scss';
 import Header from '../../components/header/Header';
 
 
-const LOGIN_URL = '/api/Account/authenticate';
-
-
-/**
- *      SuperAdmin,
-        Admin,
-        Manager,    //Added after lab course
-        Moderator,
-        Basic
- * */
+const LOGIN_URL = '/api/Identity/login';
 
 const Login = () => {
     const { setAuth } = useAuth();
@@ -29,7 +20,7 @@ const Login = () => {
     const userRef = useRef();
     const errRef = useRef();
 
-    const [email, setEmail] = useState('');
+    const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
@@ -39,28 +30,28 @@ const Login = () => {
 
     useEffect(() => {
         setErrMsg('');
-    }, [email, password])
+    }, [emailAddress, password])
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(email, password);
+        console.log(emailAddress, password);
 
         try {
             const response = await axios.post(LOGIN_URL,
-                JSON.stringify({ email, password }),
+                JSON.stringify({ emailAddress, password }),
                 {
                     headers: { 'Content-Type': 'application/json' }
                 }
             );
-            console.log(JSON.stringify(response?.data?.data));
+            console.log(JSON.stringify(response));
 
-            const jwToken = response?.data?.data?.jwToken;
-            const roles = response?.data?.data?.roles;
-            console.log(jwToken, roles);
-            setAuth({ email, password, roles, jwToken });
-            setEmail('');
+            const jwToken = response?.data?.token;
+            const roles = ["Basic"];
+            console.log('token login ', jwToken, roles);
+            setAuth({ emailAddress, password, roles, jwToken });
+            setEmailAddress('');
             setPassword('');
 
             navigate(from, { replace: true });
@@ -78,6 +69,7 @@ const Login = () => {
         }
     }
 
+
     const headerLogin = 'Would you like to share your every situation and thought with us? continue to see latest projects';
 
     return (
@@ -94,8 +86,8 @@ const Login = () => {
                             id="email"
                             ref={userRef}
                             autoComplete="off"
-                            onChange={(e) => setEmail(e.target.value)}
-                            value={email}
+                            onChange={(e) => setEmailAddress(e.target.value)}
+                            value={emailAddress}
                             required
                         />
 

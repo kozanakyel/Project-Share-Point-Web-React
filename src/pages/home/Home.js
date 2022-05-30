@@ -9,6 +9,7 @@ import { useState } from 'react';
 
 import { projectData } from "../../traindata/projectdata";
 import ProjectCard from "../../components/projectcard/ProjectCard";
+import axios from "../../utils/axios";
 
 
 import './home.scss';
@@ -20,9 +21,11 @@ const Home = () => {
     const navigate = useNavigate();
     const logout = useLogout();
 
-    const [title, setTitle] = useState('');
+    const [projectName, setName] = useState('');
     const [category, setCategory] = useState('');
-    const [content, setContent] = useState('');
+    const [textContent, setTextContent] = useState('');
+
+    const [success, setSuccess] = useState(false);
 
     const signOut = async () => {
         await logout();
@@ -31,7 +34,57 @@ const Home = () => {
 
     console.log('home auth', auth);
 
-    const homeHeader = `Welcome ${auth?.email} Now we are ready explore your new ideas!`;
+    const homeHeader = `Welcome ${auth?.emailAddress} Now we are ready explore your new ideas!`;
+
+    const submit = async (e) => {
+        e.preventDefault();
+
+
+        console.log('beararre for project', auth?.jwToken, projectName, textContent, category);
+
+        const headers = {
+            'Content-Type': 'application/json',
+            "Authorization" : `Bearer ${auth?.jwToken}`,
+            "Accept-Post" : "*/*"
+          }
+
+        try {
+            const response = await axios.post('/api/Projects',
+                JSON.stringify({
+                    projectName,
+                    category,
+                    textContent
+                }),
+                {
+                    headers: headers
+                    
+                }
+            );
+            console.log('response data', response);
+            console.log('status', response.status, 'typr of', typeof(response.status));
+            localStorage.setItem("data", JSON.stringify(response));
+            const saved = localStorage.getItem("data");
+            console.log('before parsed', saved)
+            let savedObject = JSON.parse(saved);
+            console.log('saved data after parsed', savedObject.data);
+            if (response.status === 201) {
+                setSuccess(true);
+                localStorage.clear();
+            } else {
+                
+                localStorage.clear();
+            }
+
+        } catch (err) {
+            if (!err?.response) {
+                console.log('error   post projects');
+            }
+            
+        }
+
+
+
+    }
 
     return <>
         <Header content={homeHeader} />
@@ -45,17 +98,27 @@ const Home = () => {
             </div>
             <hr />
             <h1>Create New Project</h1>
+
+
             <main className={classes["form-signin"]}>
+            {success ? (
+                <section style={{ marginBottom: 100 }}>
+                    <h1>Success!</h1>
+                    <p>
+                        <Link to="/allprojects">Lets See All Projects!!</Link>
+                    </p>
+                </section>
+            ) : (
                 <section>
-                    <form onSubmit={() => { }} className="form-signin">
+                    <form onSubmit={submit} className="form-signin">
                         <label htmlFor="title">title:</label>
                         <input
                             style={{ width: 500 }}
                             type="text"
                             id="title"
                             autoComplete="off"
-                            onChange={(e) => setTitle(e.target.value)}
-                            value={title}
+                            onChange={(e) => setName(e.target.value)}
+                            value={projectName}
                             required
                         />
 
@@ -72,8 +135,8 @@ const Home = () => {
                         <textarea
                             style={{ width: 500 }}
                             id="content"
-                            onChange={(e) => setContent(e.target.value)}
-                            value={content}
+                            onChange={(e) => setTextContent(e.target.value)}
+                            value={textContent}
                             required
                         />
                         <button>Create Project</button>
@@ -82,6 +145,7 @@ const Home = () => {
                     </form>
 
                 </section>
+            )}
             </main>
         </section>
         <article className='bg-dark ' style={{ padding: "100px" }}>

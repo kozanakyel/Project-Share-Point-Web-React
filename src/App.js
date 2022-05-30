@@ -29,7 +29,7 @@ const ROLES = [
 
 function App() {
     return (
-
+        
         <>
             <Nav />
             <Routes>
@@ -49,7 +49,7 @@ function App() {
                         <Route element={<RequireAuth allowedRoles={[ROLES[0]]} />}>
                             <Route path="myprofile" element={<Myprofile />} />
                         </Route>
-                        <Route element={<RequireAuth allowedRoles={[ROLES[1]]} />}>
+                        <Route element={<RequireAuth allowedRoles={[ROLES[0]]} />}>
                             <Route path="admin" element={<Admin />} />
                         </Route>
                         <Route element={<RequireAuth allowedRoles={[ROLES[0]]} />}>
