@@ -108,31 +108,7 @@ const Register = () => {
                 setErrMsg('Not confirmed please try again!');
                 localStorage.clear();
             }
-            /**
-             let urlForConfirmedEmail = savedObject.data["message"].split(" ").reverse()[0];
-            //urlForConfirmedEmail = urlForConfirmedEmail.replaceAt(17, "5");
-            urlForConfirmedEmail = urlForConfirmedEmail.replace('3000', '5000')  //Importanr last point
-            console.log(urlForConfirmedEmail);
 
-            //get reponse from CONFIRMED email api and navigate login or register page
-            let responseConfirmed = await fetch(urlForConfirmedEmail);
-            let confirmedJson = await responseConfirmed.json();
-            localStorage.setItem("dataConfirmed", JSON.stringify(confirmedJson));
-            const saved2 = localStorage.getItem("dataConfirmed");
-            console.log(saved2);
-            let confirmResponse = JSON.parse(saved2);
-            if (confirmResponse["succeeded"] === true) {
-                setSuccess(true);
-                localStorage.clear();
-            } else {
-                setErrMsg('Not confirmed please try again!');
-                localStorage.clear();
-            }
-             */
-            
-
-
-            //clear the input fields
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No server response');
@@ -143,51 +119,6 @@ const Register = () => {
             }
             errRef.current.focus();
         }
-
-        /*
-                const response = await fetch('http://localhost:5000/api/Account/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        firstName,
-                        lastName,
-                        email,
-                        userName,
-                        password,
-                        confirmPassword
-                    })
-                });
-        
-                
-        
-                //get response json from register api
-                let content = await response.json();
-                localStorage.setItem("data", JSON.stringify(content));
-                const saved = localStorage.getItem("data");
-                console.log(saved)
-                let urlForConfirmedEmail = JSON.parse(saved)["message"].split(" ").reverse()[0];
-                urlForConfirmedEmail = urlForConfirmedEmail.replaceAt(17, "5");
-                console.log(urlForConfirmedEmail);
-        
-                //get reponse from CONFIRMED email api and navigate login or register page
-                let responseConfirmed = await fetch(urlForConfirmedEmail);
-                let confirmedJson = await responseConfirmed.json();
-                localStorage.setItem("dataConfirmed", JSON.stringify(confirmedJson));
-                const saved2 = localStorage.getItem("dataConfirmed");
-                console.log(saved2);
-                let confirmResponse = JSON.parse(saved2);
-                if (confirmResponse["succeeded"] === true) {
-                    //alert("Confirmed accounted and registration");
-                    setRedirect(true);
-                    localStorage.clear();
-                    //navigate("/login");
-                    
-                } else {
-                    alert("not confirmed please try again");
-                    localStorage.clear();
-                    navigate("/register");
-                }
-            */
 
     }
 

@@ -1,4 +1,4 @@
-function createRandomImg(){
+export default function createRandomImg(){
     const number = Math.floor(Math.random() * 4) + 1;
     return `/samples/${number}.jpg`;
 }
