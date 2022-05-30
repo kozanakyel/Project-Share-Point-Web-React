@@ -7,6 +7,13 @@
 
 .comment-area{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
+}
+
+.profile-id{
+    font-size: 7px;
+    font-weight: bold;
+    color: blueviolet;
 }

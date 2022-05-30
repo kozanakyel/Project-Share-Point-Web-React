@@ -44,7 +44,7 @@ const Home = () => {
         e.preventDefault();
 
 
-        console.log('beararre for project', auth?.jwToken, projectName, textContent, category);
+        console.log('bearer for project', auth?.jwToken, projectName, textContent, category);
 
         const headers = {
             'Content-Type': 'application/json',
@@ -100,9 +100,6 @@ const Home = () => {
 
             });
     }, [])
-
-
-
 
 
     return <>
@@ -179,7 +176,9 @@ const Home = () => {
                                 date={e.dateCreated}
                                 image={createRandomImg()}
                                 content={e.projectContent}
-                                comments={[]} />
+                                comments={[]} 
+                                projectId={e.projectId}
+                                />
                         </div>
                     );
                 })}

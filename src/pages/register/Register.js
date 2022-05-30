@@ -224,7 +224,7 @@ const Register = () => {
                          */}
 
                         <button
-                            className="w-100 btn btn-lg btn-primary"
+                            className="w-100 btn btn-lg btn-success"
                             type="submit"
                             disabled={!validFirstName || !validPwd /*|| !validMatch ? true : false*/}
                         >
