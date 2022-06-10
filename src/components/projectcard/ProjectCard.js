@@ -77,7 +77,6 @@ export default function ProjectCard(props) {
         console.log("basraili comment");
         localStorage.clear();
       } else {
-
         localStorage.clear();
       }
 

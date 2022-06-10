@@ -24,12 +24,14 @@ const Home = () => {
     const logout = useLogout();
 
     const [projectName, setName] = useState('');
-    const [category, setCategory] = useState('');
+    const [categoryId, setCategoryId] = useState('');
     const [textContent, setTextContent] = useState('');
+
 
     const [success, setSuccess] = useState(false);
 
     const [projects, setProjects] = useState([]);
+    const [categoryList, setCategoryList] = useState([]);
 
     const signOut = async () => {
         await logout();
@@ -44,7 +46,7 @@ const Home = () => {
         e.preventDefault();
 
 
-        console.log('bearer for project', auth?.jwToken, projectName, textContent, category);
+        console.log('bearer for project', auth?.jwToken, projectName, textContent, categoryId);
 
         const headers = {
             'Content-Type': 'application/json',
@@ -56,7 +58,7 @@ const Home = () => {
             const response = await axios.post('/api/Projects',
                 JSON.stringify({
                     projectName,
-                    category,
+                    categoryId,
                     textContent
                 }),
                 {
@@ -98,7 +100,30 @@ const Home = () => {
 
                 setProjects(savedObject);
 
+
             });
+    }, [])
+
+
+
+    useEffect(() => {
+        const headers2 = {
+            "Authorization": `Bearer ${auth?.jwToken}`,
+            "Accept-Post": "*/*"
+        }
+        axios.get("/api/Category", {
+            headers: headers2
+        }).then(function (response) {
+            console.log('CAtegory DAta: a ', response);
+            localStorage.setItem("dataC", JSON.stringify(response?.data));
+            const saved = localStorage.getItem("dataC");
+            const savedObject = JSON.parse(saved);
+            console.log(savedObject);
+
+            setCategoryList(savedObject);
+
+
+        });
     }, [])
 
 
@@ -139,14 +164,16 @@ const Home = () => {
                             />
 
                             <label htmlFor="category">category:</label>
-                            <input
-                                style={{ width: 500 }}
-                                type="text"
-                                id="category"
-                                onChange={(e) => setCategory(e.target.value)}
-                                value={category}
-                                required
-                            />
+                            <select value={categoryId} id="categoryId" onChange={(e) => setCategoryId(e.target.value)} style={{ width: 500 }} >
+                                {categoryList.map((k, i) => {
+                                    return (
+
+                                        <option key={i} value={k.categoryId}> {k.categoryName}</option>
+
+                                    );
+                                })}
+                            </select>
+
                             <label htmlFor="content">content:</label>
                             <textarea
                                 style={{ width: 500 }}
@@ -176,9 +203,9 @@ const Home = () => {
                                 date={e.dateCreated}
                                 image={createRandomImg()}
                                 content={e.projectContent}
-                                comments={[]} 
+                                comments={[]}
                                 projectId={e.projectId}
-                                />
+                            />
                         </div>
                     );
                 })}

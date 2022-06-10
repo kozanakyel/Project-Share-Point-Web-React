@@ -22,9 +22,11 @@ const AllProjects = () => {
                 localStorage.setItem("dataP", JSON.stringify(response?.data));
                 const saved = localStorage.getItem("dataP");
                 const savedObject = JSON.parse(saved);
-                console.log(savedObject);
+                console.log('category id: ', savedObject?.category);
 
                 setProjects(savedObject);
+                console.log('pro category id: ', projects);
+                
 
             });
     }, [])
